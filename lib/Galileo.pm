@@ -49,6 +49,20 @@ sub load_config {
       extra_static_paths => ['static'],
       extra_renderer_paths => ['templates'],
       sanitize => 1,
+      pagedown_extra_options => {
+        highlighter => 'highlight',
+        table_class => 'table table-striped',
+        extensions  => [qw/
+          tables
+          fenced_code_gfm
+          def_list
+          attr_list
+          footnotes
+          smartypants
+          strikethrough
+          newlines
+        /],
+      },
       secrets => [],
       upload_path => 'uploads',
     },
@@ -356,6 +370,10 @@ L<DBIx::Class|http://www.dbix-class.org/> - an extensible and flexible Object/Re
 =item * 
 
 L<PageDown|http://code.google.com/p/pagedown/> (Markdown engine) - the version of Attacklab's Showdown and WMD as used on Stack Overflow and the other Stack Exchange sites
+
+=item * 
+
+L<PageDown Extra|https://github.com/jmcmanus/pagedown-extra> - Markdown Extra Plugins for Pagedown
 
 =item * 
 
