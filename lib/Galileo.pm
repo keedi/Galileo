@@ -217,6 +217,23 @@ sub startup {
   ## Additional Plugins ##
   $app->plugin('Humane', auto => 0);
   $app->plugin('ConsoleLogger') if $ENV{GALILEO_CONSOLE_LOGGER};
+
+  # patch
+  {
+    $r->get( '/login' => sub { my $self = shift; $self->redirect_to('/') if $self->get_user; $self->render('login'); });
+    my $if_user = $r->under( sub {
+      my $self = shift;
+      $self->app->log->debug('hello world');
+      unless ( $self->get_user ) {
+        $self->humane_flash( "SILEX docs is needed to Log-In" );
+        $self->redirect_to('/login');
+        return;
+      }
+      return 1;
+    });
+    $r->find('pagename')->remove;
+    $if_user->any( '/page/:name' )->to('page#show');
+  }
 }
 
 1;
