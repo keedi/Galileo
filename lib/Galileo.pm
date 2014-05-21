@@ -238,6 +238,11 @@ sub startup {
   ## Additional Plugins ##
   $app->plugin('Humane', auto => 0);
   $app->plugin('ConsoleLogger') if $ENV{GALILEO_CONSOLE_LOGGER};
+
+  $app->plugin('Galileo::Plugin::SILEX', {
+    client_id     => $app->config->{silex}{client_id},
+    client_secret => $app->config->{silex}{client_secret},
+  });
 }
 
 1;
